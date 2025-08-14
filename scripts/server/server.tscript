@@ -1,0 +1,109 @@
+//function WheeledVehicleData::onAdd(%this, %obj)
+//{
+//   Parent::onAdd(%this, %obj);
+//   echo("Adding Wheeled Vehicle data.");
+//   // Setup the default car with some tires & springs
+//   for (%i = %obj.getWheelCount() - 1; %i >= 0; %i--)
+//   {
+//      %obj.setWheelTire(%i, RatRodCarTire);
+//      %obj.setWheelSpring(%i, RatRodCarSpring);
+//      %obj.setWheelPowered(%i, false);
+//   }
+//
+//   // Steer with the front tires
+//   %obj.setWheelSteering(0, 1);
+//   %obj.setWheelSteering(1, 1);
+//
+//   // Only power the two rear wheels... assuming there are only 4 wheels.
+//   %obj.setWheelPowered(2, true);
+//   %obj.setWheelPowered(3, true);
+//}
+
+function RatRodCar::onAdd(%this, %obj)
+{
+   //Add the Vehicle Specific settings here.
+   echo("Adding RatRod Vehicle data.");
+   Parent::onAdd(%this, %obj);
+
+   for (%i = %obj.getWheelCount() - 1; %i >= 0; %i--)
+   {
+      %obj.setWheelTire(%i, RatRodCarTire);
+      %obj.setWheelSpring(%i, RatRodCarSpring);
+   }
+
+   // Steer with the front tires
+   %obj.setWheelSteering(0, 1);
+   %obj.setWheelSteering(1, 1);
+   //
+   // Only power the two rear wheels... assuming there are only 4 wheels.
+   %obj.setWheelPowered(2, true);
+   %obj.setWheelPowered(3, true);
+}
+
+function ExampleWheeledVehicle::setSpawnObjectType(%this, %client)
+{
+   if(isObject(FPSPlayer))
+   {
+      //test
+      echo("FPS Player detected.");
+   } else {
+      //If the FPS Module is missing make this thing the player!
+      echo("Spawning Vehicle");
+      // This sets the spawn class and identifies the Vehicle as the client.
+      %client.spawnClass = "WheeledVehicle";
+      %client.spawnDBType = "WheeledVehicleData";
+      %client.spawnDataBlock = "RatRodCar";
+
+      // This forces 3rd person, since its a Vehicle we want to see it.
+      ServerConnection.setFirstPerson(false);
+   }
+   // This just confirms the client spawned.
+   %this.setSpawnObjectTypeComplete(%client);
+}
+
+//Begin, Need this here if we have the FPS module, so we can exit the vehicle
+function serverCmdcarUnmountObj(%client, %obj)
+{
+   %obj.unmount();
+   %obj.setControlObject(%obj);
+
+   %ejectpos = %obj.getPosition();
+   %ejectpos = VectorAdd(%ejectpos, "0 0 5");
+   %obj.setTransform(%ejectpos);
+
+   %ejectvel = %obj.mVehicle.getVelocity();
+   %ejectvel = VectorAdd(%ejectvel, "0 0 10");
+   %ejectvel = VectorScale(%ejectvel, %obj.getDataBlock().mass);
+   %obj.applyImpulse(%ejectpos, %ejectvel);
+}
+
+function serverCmdsetPlayerControl(%client)
+{
+     %client.setControlObject(%client.player);
+}
+
+function serverCmddismountVehicle(%client)
+{
+   %car = %client.player.getControlObject();
+   
+   %passenger = %car.getMountNodeObject(0);
+   %passenger.getDataBlock().doDismount(%passenger, true);
+   
+   %client.setControlObject(%client.player);
+}
+//End
+
+function ExampleWheeledVehicle::setSpawnObjectTypeComplete(%this, %client)
+{
+   %client.getEventManager().postEvent("setSpawnObjectTypeComplete", %client);
+}
+
+function ExampleWheeledVehicle::onPostSpawn(%this, %client)
+{
+   commandToClient(%client, 'ExampleMoveMap', true);
+}
+
+function ExampleWheeledVehicle::setSpawnObjectTypeFailed(%this, %client)
+{
+   %client.getEventManager().postEvent("setSpawnObjectTypeFailed", %client);
+}

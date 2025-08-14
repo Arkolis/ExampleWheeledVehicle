@@ -1,0 +1,8 @@
+<ShapeAsset
+    AssetName="RatRod_shape"
+    fileName="@assetFile=@RatRod.dae"
+    constuctorFileName="@assetFile=@RatRod.tscript"
+    diffuseImposterFileName="@assetFile=@RatRod.dae_imposter.dds"
+    normalImposterFileName="@assetFile=@RatRod.dae_imposter_normals.dds"
+    materialSlot0="@asset=ExampleWheeledVehicle:RatRod_Body"
+    materialSlot1="@asset=ExampleWheeledVehicle:RatRod_Glass"/>

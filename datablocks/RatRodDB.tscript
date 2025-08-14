@@ -1,0 +1,95 @@
+datablock WheeledVehicleTire(RatRodCarTire)
+{
+   ShapeAsset = "ExampleWheeledVehicle:wheel_shape";
+   
+   //IMPORTANT NOTE:
+   //this is not friction to be overcome like a physicsshape
+   //this is grip to be applied under those conditions
+   //so flip which needs to be bigger
+   
+   staticFriction =  0.5;
+   kineticFriction = 4.2;
+
+   // Spring that generates lateral tire forces
+   lateralForce = 150000;
+   lateralDamping = 30000;
+   lateralRelaxation = 0.1;
+
+   // Spring that generates longitudinal tire forces
+   longitudinalForce = 600;
+   longitudinalDamping = 1600;
+   longitudinalRelaxation = 0.1;
+
+};
+
+datablock WheeledVehicleSpring(RatRodCarSpring)
+{
+   // Wheel suspension properties
+   length = "0.3";           // Suspension travel
+   force = 1000;           // Spring force
+   damping = 300;         // Spring damping
+   antiSwayForce = 800;    // Lateral anti-sway force
+};
+
+datablock WheeledVehicleData(RatRodCar)
+{
+   shapeAsset = "ExampleWheeledVehicle:RatRod_shape";
+
+   useEyePoint = true;  // Use the vehicle's camera node rather than the player's
+
+   nameTag = 'RatRod';
+   maxDismountSpeed = 10;
+   maxMountSpeed = 5;
+
+   mountPose[0] = sitting;
+   numMountPoints = 2;
+
+   maxSteeringAngle = 0.585;  // Maximum steering angle, should match animation
+
+   // 3rd person camera settings
+   cameraRoll = false;        // Roll the camera with the vehicle
+   cameraMaxDist = 6;       // Far distance from vehicle
+   cameraOffset = 0;        // Vertical offset from camera mount point
+   cameraLag = "0.3";         // Velocity lag of camera
+   cameraDecay = 1.25;        // Decay per sec. rate of velocity lag
+
+   // Rigid Body
+   mass = "300";
+   massCenter = "0 0.5 0";    // Center of mass for rigid body
+   massBox = "0 0 0";         // Size of box used for moment of inertia,
+                              // if zero it defaults to object bounding box
+   drag = 0.6;                // Drag coefficient
+   bodyFriction = 0.6;
+   bodyRestitution = 0.4;
+   minImpactSpeed = "1";      // Impacts over this invoke the script callback
+   softImpactSpeed = 5;       // Play SoftImpact Sound
+   hardImpactSpeed = 15;      // Play HardImpact Sound
+   integration = 8;           // Physics integration: TickSec/Rate
+   collisionTol = "0.1";      // Collision distance tolerance
+   contactTol = "0.4";        // Contact velocity tolerance
+
+   // Engine
+   engineTorque = 1200;       // Engine power
+   engineBrake = "1000";      // Braking when throttle is 0
+   brakeTorque = "10000";     // When brakes are applied
+   maxWheelSpeed = 25;        // Engine scale by current speed / max speed
+
+   // Energy
+   maxEnergy = 100;
+   jetForce = 3000;
+   minJetEnergy = 30;
+   jetEnergyDrain = 2;
+
+   // Mount slots
+   rightBrakeSlot = 2;
+   leftBrakeSlot = 3;
+   dragForce = "0.01";   
+      
+   downforce = 0.05;
+   maxDamage = 1000;
+   minImpactSpeed = 1;
+   collisionMul = 0.1;
+   impactMul = 1;
+   controlMap = "ExampleWheeledMove";
+   ShapeFile = "data/ExampleWheeledVehicle/art/RatRod.dae";
+};

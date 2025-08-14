@@ -1,0 +1,22 @@
+<MaterialAsset
+    AssetName="RatRod_Glass"
+    materialDefinitionName="RatRod_Glass_Mat"
+    VersionId="1">
+    <Material
+        Name="RatRod_Glass_Mat"
+        mapTo="RatRod_Glass"
+        castShadows="false"
+        translucent="true"
+        translucentZWrite="true"
+        alphaRef="0"
+        showFootprints="false"
+        castDynamicShadows="0"
+        originalAssetName="RatRod_Glass_Mat">
+        <Material.Stages>
+            <Stages_beginarray
+                DiffuseMapAsset="@asset=ExampleWheeledVehicle:RatRod_D"
+                NormalMapAsset="@asset=ExampleWheeledVehicle:RatRod_N"
+                ORMConfigMapAsset="@asset=ExampleWheeledVehicle:RatRod_ORM"/>
+        </Material.Stages>
+    </Material>
+</MaterialAsset>

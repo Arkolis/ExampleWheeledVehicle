@@ -1,0 +1,16 @@
+<MaterialAsset
+    AssetName="RatRod_body"
+    materialDefinitionName="RatRod_body_mat"
+    VersionId="1">
+    <Material
+        Name="RatRod_body_mat"
+        mapTo="RatRod_body"
+        originalAssetName="RatRod_body_mat">
+        <Material.Stages>
+            <Stages_beginarray
+                DiffuseMapAsset="@asset=ExampleWheeledVehicle:RatRod_D"
+                NormalMapAsset="@asset=ExampleWheeledVehicle:RatRod_N"
+                ORMConfigMapAsset="@asset=ExampleWheeledVehicle:RatRod_ORM"/>
+        </Material.Stages>
+    </Material>
+</MaterialAsset>

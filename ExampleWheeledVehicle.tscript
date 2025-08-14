@@ -1,0 +1,51 @@
+function ExampleWheeledVehicle::onCreate(%this)
+{
+}
+
+function ExampleWheeledVehicle::onDestroy(%this)
+{
+}
+
+//This is called when the server is initially set up by the game application
+function ExampleWheeledVehicle::initServer(%this)
+{
+   %this.queueExec("./scripts/shared/ExampleGameMode");
+   %this.queueExec("./scripts/server/server");
+}
+
+//This is called when the server is created for an actual game/map to be played
+function ExampleWheeledVehicle::onCreateGameServer(%this)
+{
+   %this.registerDatablock("./datablocks/RatRodDB");
+}
+
+//This is called when the server is shut down due to the game/map being exited
+function ExampleWheeledVehicle::onDestroyGameServer(%this)
+{
+}
+
+//This is called when the client is initially set up by the game application
+function ExampleWheeledVehicle::initClient(%this)
+{
+   %this.queueExec("./scripts/client/inputCommands");
+
+   //client scripts
+   exec("./scripts/client/defaultkeybinds");
+   
+   %prefPath = getPrefpath();
+   if(isScriptFile(%prefPath @ "/keybinds"))
+      exec(%prefPath @ "/keybinds");
+      
+   %this.queueExec("./scripts/shared/ExampleGameMode");
+}
+
+//This is called when a client connects to a server
+function ExampleWheeledVehicle::onCreateClientConnection(%this)
+{
+   ExampleWheeledMove.push();
+}
+
+//This is called when a client disconnects from a server
+function ExampleWheeledVehicle::onDestroyClientConnection(%this)
+{
+}

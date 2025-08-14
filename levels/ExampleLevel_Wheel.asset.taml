@@ -1,0 +1,11 @@
+<LevelAsset
+    AssetName="ExampleLevel_Wheel"
+    LevelFile="@assetFile=ExampleLevel_Wheel.mis"
+    LevelName="ExampleLevel_Wheel"
+    PostFXPresetFile="@assetFile=ExampleLevel_Wheel.postfxpreset.tscript"
+    DecalsFile="@assetFile=ExampleLevel_Wheel.mis.decals"
+    ForestFile="@assetFile=ExampleLevel_Wheel.forest"
+    NavmeshFile="@assetFile=ExampleLevel_Wheel.nav"
+    staticObjectAssetDependency0="@asset=Prototyping:FloorGray"
+    staticObjectAssetDependency1="@asset=ExampleWheeledVehicle:NewTerrain"
+    VersionId="1"/>

@@ -1,0 +1,8 @@
+<ShapeAsset
+    canSave="true"
+    canSaveDynamicFields="true"
+    AssetName="wheel_shape"
+    fileName="@assetFile=wheel.dae"
+    constuctorFileName="@assetFile=@wheel.tscript"
+    materialSlot0="@asset=ExampleWheeledVehicle:RatRod_Body"
+/>

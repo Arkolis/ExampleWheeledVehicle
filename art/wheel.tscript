@@ -1,0 +1,9 @@
+singleton TSShapeConstructor(WheelDae)
+{
+   baseShapeAsset = "ExampleWheeledVehicle:wheel_shape";
+   lodType = "TrailingNumber";
+   neverImport = "null	EnvironmentAmbientLight";
+   matNamePrefix = "";
+   forceUpdateMaterials = "0";
+   loadLights = "0";
+};
