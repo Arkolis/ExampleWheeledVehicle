@@ -20,6 +20,7 @@ datablock WheeledVehicleTire(RatRodCarTire)
    longitudinalDamping = 1600;
    longitudinalRelaxation = 0.1;
 
+   radius = "0.8";
 };
 
 datablock WheeledVehicleSpring(RatRodCarSpring)

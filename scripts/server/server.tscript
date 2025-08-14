@@ -40,6 +40,11 @@ function RatRodCar::onAdd(%this, %obj)
    %obj.setWheelPowered(3, true);
 }
 
+function RatRodCar::onRemove(%this, %obj)
+{
+   Parent::onRemove(%this, %obj);
+}
+
 function ExampleWheeledVehicle::setSpawnObjectType(%this, %client)
 {
    if(isObject(FPSPlayer))
