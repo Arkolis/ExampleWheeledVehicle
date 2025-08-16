@@ -4,5 +4,5 @@
     AssetName="wheel_shape"
     fileName="@assetFile=wheel.dae"
     constuctorFileName="@assetFile=@wheel.tscript"
-    materialSlot0="@asset=ExampleWheeledVehicle:RatRod_Body"
+    materialSlot0="@asset=RatRodExample:RatRod_Body"
 />

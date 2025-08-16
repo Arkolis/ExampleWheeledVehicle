@@ -1,0 +1,6 @@
+<ShapeAsset
+    AssetName="RatRod_shape"
+    fileName="@assetFile=@RatRod.dae"
+    constuctorFileName="@assetFile=@RatRod.tscript"
+    materialSlot0="@asset=RatRodExample:RatRod_Body"
+    materialSlot1="@asset=RatRodExample:RatRod_Glass"/>

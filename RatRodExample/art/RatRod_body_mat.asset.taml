@@ -8,9 +8,9 @@
         originalAssetName="RatRod_body_mat">
         <Material.Stages>
             <Stages_beginarray
-                DiffuseMapAsset="@asset=ExampleWheeledVehicle:RatRod_D"
-                NormalMapAsset="@asset=ExampleWheeledVehicle:RatRod_N"
-                ORMConfigMapAsset="@asset=ExampleWheeledVehicle:RatRod_ORM"/>
+                DiffuseMapAsset="@asset=RatRodExample:RatRod_D"
+                NormalMapAsset="@asset=RatRodExample:RatRod_N"
+                ORMConfigMapAsset="@asset=RatRodExample:RatRod_ORM"/>
         </Material.Stages>
     </Material>
 </MaterialAsset>

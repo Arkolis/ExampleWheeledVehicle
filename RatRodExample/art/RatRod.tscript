@@ -1,6 +1,6 @@
 singleton TSShapeConstructor(RatRodDAE)
 {
-   baseShapeAsset = "ExampleWheeledVehicle:RatRod_Shape";
+   baseShapeAsset = "RatRodExample:RatRod_Shape";
    lodType = "TrailingNumber";
    neverImport = "null	EnvironmentAmbientLight";
    matNamePrefix = "";
@@ -16,5 +16,6 @@ function RatRodDAE::onLoad(%this)
    %this.addSequence("ambient", "spring1", "20", "21", "1", "0");
    %this.addSequence("ambient", "spring2", "30", "31", "1", "0");
    %this.addSequence("ambient", "spring3", "40", "41", "1", "0");
+   %this.setSequenceBlend("steering", "1", "ambient", "0");
    echo("RatRodDAE Loaded...");
 }

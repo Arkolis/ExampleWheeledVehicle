@@ -1,32 +1,48 @@
+//-------------------------------- Header -------------------------------------
+//-----------------------------------------------------------------------------
 datablock WheeledVehicleTire(RatRodCarTire)
 {
-   ShapeAsset = "ExampleWheeledVehicle:wheel_shape";
+   ShapeAsset = "RatRodExample:wheel_shape";
    
    //IMPORTANT NOTE:
    //this is not friction to be overcome like a physicsshape
    //this is grip to be applied under those conditions
    //so flip which needs to be bigger
    
-   staticFriction =  0.5;
-   kineticFriction = 4.2;
+   staticFriction =  4;
+   kineticFriction = 1.25;
 
-   // Spring that generates lateral tire forces
+   // Spring that generates lateral tire forces aka turn force
    lateralForce = 150000;
    lateralDamping = 30000;
-   lateralRelaxation = 0.1;
+   lateralRelaxation = 1;
 
-   // Spring that generates longitudinal tire forces
+   // Spring that generates longitudinal tire forces aka acceleration forces
    longitudinalForce = 600;
    longitudinalDamping = 1600;
    longitudinalRelaxation = 0.1;
+   radius = "0.840293";
+};
 
-   radius = "0.8";
+datablock ParticleEmitterData(rrTireSmokeEmitter)
+{
+   ejectionPeriodMS  = 20;
+   periodVarianceMS  = 10;
+   ejectionVelocity  = 1;
+   velocityVariance  = 1;
+   thetaMin          = 0;
+   thetaMax          = 30;
+   particles         = "GunFireSmoke";
+   blendStyle        = "NORMAL";
+   softParticles     = "0";
+   alignParticles    = "0";
+   orientParticles   = "0";
 };
 
 datablock WheeledVehicleSpring(RatRodCarSpring)
 {
    // Wheel suspension properties
-   length = "0.3";           // Suspension travel
+   length = 0.5;           // Suspension travel
    force = 1000;           // Spring force
    damping = 300;         // Spring damping
    antiSwayForce = 800;    // Lateral anti-sway force
@@ -34,15 +50,17 @@ datablock WheeledVehicleSpring(RatRodCarSpring)
 
 datablock WheeledVehicleData(RatRodCar)
 {
-   shapeAsset = "ExampleWheeledVehicle:RatRod_shape";
+   category = "Vehicles";
+   shapeAsset = "RatRodExample:RatRod_shape";
+   emap = 1;
 
-   useEyePoint = true;  // Use the vehicle's camera node rather than the player's
+   useEyePoint = false;  // Use the vehicle's camera node rather than the player's
 
-   nameTag = 'RatRod';
+   nameTag = "RatRod";
    maxDismountSpeed = 10;
    maxMountSpeed = 5;
 
-   mountPose[0] = sitting;
+   mountPose[0] = "sitting";
    numMountPoints = 2;
 
    maxSteeringAngle = 0.585;  // Maximum steering angle, should match animation
@@ -65,7 +83,7 @@ datablock WheeledVehicleData(RatRodCar)
    minImpactSpeed = "1";      // Impacts over this invoke the script callback
    softImpactSpeed = 5;       // Play SoftImpact Sound
    hardImpactSpeed = 15;      // Play HardImpact Sound
-   integration = 8;           // Physics integration: TickSec/Rate
+   integration = 7;           // Physics integration: TickSec/Rate
    collisionTol = "0.1";      // Collision distance tolerance
    contactTol = "0.4";        // Contact velocity tolerance
 
@@ -80,17 +98,31 @@ datablock WheeledVehicleData(RatRodCar)
    jetForce = 3000;
    minJetEnergy = 30;
    jetEnergyDrain = 2;
+   
+   tireEmitter = rrTireSmokeEmitter;
+   dustEmitter = rrTireSmokeEmitter;
+   dustHeight = "0.25";
 
    // Mount slots
    rightBrakeSlot = 2;
    leftBrakeSlot = 3;
    dragForce = "0.01";   
-      
+   
+   EngineSoundAsset = "Cheetah:cheetahEngine";
+   WheelImpactSoundAsset = "Cheetah:DirtKickup";
+   SoftImpactSoundAsset = "Cheetah:softImpact";
+   HardImpactSoundAsset = "Cheetah:hardImpact";
+   squealSoundAsset = "Cheetah:cheetahSqueal";
+   
+   dustTrailEmitter = rrTireSmokeEmitter;
+   triggerDustHeight = "0";
+
    downforce = 0.05;
-   maxDamage = 1000;
+   maxDamage = 600;
+
    minImpactSpeed = 1;
    collisionMul = 0.1;
    impactMul = 1;
-   controlMap = "ExampleWheeledMove";
-   ShapeFile = "data/ExampleWheeledVehicle/art/RatRod.dae";
+   controlMap = "vehicleKeyMap";
+   AIControllerData = "aiCarControl";
 };

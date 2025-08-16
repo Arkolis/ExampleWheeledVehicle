@@ -1,0 +1,88 @@
+//-------------------------------- Header -------------------------------------
+//-----------------------------------------------------------------------------
+if ( !isObject( vehicleKeyMap ) )
+{
+    new ActionMap(vehicleKeyMap)
+    {
+      humanReadableName = "Vehicle";  
+    };
+}
+
+//------------------------------------------------------------------------------
+// Set up remappable entries
+//------------------------------------------------------------------------------
+addKeyRemap("Forward", "vehicleKeyMap", "keyboard", "moveForward", "Forward Movement");
+addKeyRemap("Backward", "vehicleKeyMap", "keyboard", "movebackward", "Backward Movement");
+addKeyRemap("Strafe Left", "vehicleKeyMap", "keyboard", "moveleft", "Left Strafing Movement");
+addKeyRemap("Strafe Right", "vehicleKeyMap", "keyboard", "moveright", "Right Strafing Movement");
+addKeyRemap("Ascend", "vehicleKeyMap", "keyboard", "moveup", "Makes the camera ascend");
+addKeyRemap("Descend", "vehicleKeyMap", "keyboard", "movedown", "Makes the camera descend");
+addKeyRemap("Jump", "vehicleKeyMap", "keyboard", "jump", "Jump");
+
+//addKeyRemap("Forward", "vehicleKeyMap", "gamepad", "gamePadMoveY", "Forward Movement");
+//addKeyRemap("Backward", "vehicleKeyMap", "gamepad", "gamePadMoveY", "Backward Movement");
+//addKeyRemap("Strafe Left", "vehicleKeyMap", "gamepad", "gamePadMoveX", "Left Strafing Movement");
+//addKeyRemap("Strafe Right", "vehicleKeyMap", "gamepad", "gamePadMoveX", "Right Strafing Movement");
+addKeyRemap("Jump", "vehicleKeyMap", "gamepad", "jump", "Jump");
+
+//------------------------------------------------------------------------------
+// Non-remapable binds
+//------------------------------------------------------------------------------
+vehicleKeyMap.bind( keyboard, F2, showPlayerList );
+vehicleKeyMap.bind(keyboard, "ctrl h", hideHUDs);
+vehicleKeyMap.bind(keyboard, "alt p", doScreenShotHudless);
+
+//------------------------------------------------------------------------------
+// Movement Keys
+//------------------------------------------------------------------------------
+vehicleKeyMap.bind( keyboard, a, moveleft );
+vehicleKeyMap.bind( keyboard, d, moveright );
+vehicleKeyMap.bind( keyboard, left, moveleft );
+vehicleKeyMap.bind( keyboard, right, moveright );
+
+vehicleKeyMap.bind( keyboard, w, moveforward );
+vehicleKeyMap.bind( keyboard, s, movebackward );
+vehicleKeyMap.bind( keyboard, up, moveforward );
+vehicleKeyMap.bind( keyboard, down, movebackward );
+
+if(isObject(FPSPlayer))
+{
+   //Ignore this command if the FPS player module is not here.
+   vehicleKeyMap.bind(keyboard, f, getOut);
+   vehicleKeyMap.bindCmd(keyboard, "ctrl x", "commandToServer(\'rrflipCar\');", "");
+   vehicleKeyMap.bind(keyboard, y, switchSeats);
+}
+
+vehicleKeyMap.bind( keyboard, e, moveup );
+vehicleKeyMap.bind( keyboard, c, movedown );
+
+vehicleKeyMap.bind( keyboard, space, brake );
+vehicleKeyMap.bind( mouse, xaxis, yaw );
+vehicleKeyMap.bind( mouse, yaxis, pitch );
+
+vehicleKeyMap.bind( gamepad, thumbrx, "D", "-0.23 0.23", gamepadYaw );
+vehicleKeyMap.bind( gamepad, thumbry, "D", "-0.23 0.23", gamepadPitch );
+vehicleKeyMap.bind( gamepad, thumblx, "D", "-0.23 0.23", gamePadMoveX );
+vehicleKeyMap.bind( gamepad, thumbly, "D", "-0.23 0.23", gamePadMoveY );
+
+vehicleKeyMap.bind( gamepad, btn_a, jump );
+vehicleKeyMap.bindCmd( gamepad, btn_back, "disconnect();", "" );
+vehicleKeyMap.bind( keyboard, tab, toggleFirstPerson );
+
+vehicleKeyMap.bind( keyboard, Escape, escapeFromGame);
+//------------------------------------------------------------------------------
+// Demo recording functions
+//------------------------------------------------------------------------------
+vehicleKeyMap.bind( keyboard, F3, startRecordingDemo );
+vehicleKeyMap.bind( keyboard, F4, stopRecordingDemo );
+
+//------------------------------------------------------------------------------
+// Helper Functions
+//------------------------------------------------------------------------------
+GlobalActionMap.bind(keyboard, "ctrl F3", doProfile);
+
+//------------------------------------------------------------------------------
+// Misc.
+//------------------------------------------------------------------------------
+GlobalActionMap.bind(keyboard, "tilde", toggleConsole);
+vehicleKeyMap.bindCmd(keyboard, "n", "toggleNetGraph();", "");

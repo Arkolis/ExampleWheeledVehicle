@@ -1,0 +1,76 @@
+//-------------------------------- Header -------------------------------------
+//-----------------------------------------------------------------------------
+
+function RatRodCar::onAdd(%this, %obj)
+{
+   //Add the Vehicle Specific settings here.
+   echo("Adding RatRod Vehicle data.");
+   Parent::onAdd(%this, %obj);
+
+   for (%i = %obj.getWheelCount() - 1; %i >= 0; %i--)
+   {
+      %obj.setWheelTire(%i, RatRodCarTire);
+      %obj.setWheelSpring(%i, RatRodCarSpring);
+      %obj.setWheelPowered(%i, true);
+   }
+
+   // Steer with the front tires
+   %obj.setWheelSteering(0, 1);
+   %obj.setWheelSteering(1, 1);
+   %obj.setRechargeRate(100);
+}
+
+function RatRodCar::onRemove(%this, %obj)
+{
+   Parent::onRemove(%this, %obj);
+}
+
+function RatRodCar::onTrigger(%this, %obj, %index, %state)
+{
+   //test
+   echo("RatRod::onTrigger - Server ln 27");
+}
+
+function RatRodExample::setSpawnObjectType(%this, %client)
+{
+   if(isObject(FPSPlayer))
+   {
+      //Spawn the vehicle and Put it close to the character.
+      echo("FPS Player detected.");
+      %ratRod = new WheeledVehicle()
+      {
+         datablock = "RatRodCar";
+      };
+      MissionCleanup.add(%ratRod);
+      %ratRod.setShapeName("RatRod");
+      %ratRod.setTransform("5 0 5");
+   } else {
+      //If the FPS Module is missing make this thing the player!
+      echo("Spawning Vehicle");
+      // This sets the spawn class and identifies the Vehicle as the client.
+      %client.spawnClass = "WheeledVehicle";
+      %client.spawnDBType = "WheeledVehicleData";
+      %client.spawnDataBlock = "RatRodCar";
+
+      // This forces 3rd person, since its a Vehicle we want to see it.
+      ServerConnection.setFirstPerson(false);
+   }
+   // This just confirms the client spawned.
+   %this.setSpawnObjectTypeComplete(%client);
+}
+
+function RatRodExample::setSpawnObjectTypeComplete(%this, %client)
+{
+   %client.getEventManager().postEvent("setSpawnObjectTypeComplete", %client);
+}
+
+function RatRodExample::onPostSpawn(%this, %client)
+{
+   //commandToClient(%client, 'ExampleWheeledMove', true);
+   commandToClient(%client, 'rrtoggleVehicleMap', true);
+}
+
+function RatRodExample::setSpawnObjectTypeFailed(%this, %client)
+{
+   %client.getEventManager().postEvent("setSpawnObjectTypeFailed", %client);
+}

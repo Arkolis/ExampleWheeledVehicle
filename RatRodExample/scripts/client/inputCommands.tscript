@@ -1,3 +1,5 @@
+//-------------------------------- Header -------------------------------------
+//-----------------------------------------------------------------------------
 function escapeFromGame()
 {
    disconnect();
@@ -141,7 +143,7 @@ function pitch(%val)
    $mvPitch += %pitchAdj;
 }
 
-function jump(%val)
+function brake(%val)
 {
    $mvTriggerCount2++;
 }
@@ -238,6 +240,36 @@ function getOut()
    commandToServer('dismountVehicle');
 }
 
+// Trace a line along the direction the crosshair is pointing
+// If you find a car with a player in it...eject them
+function carjack()
+{
+   %player = LocalClientConnection.getControlObject();
+
+   if (%player.getClassName() $= "Player")
+   {
+      %eyeVec = %player.getEyeVector();
+
+      %startPos = %player.getEyePoint();
+      %endPos = VectorAdd(%startPos, VectorScale(%eyeVec, 1000));
+
+      %target = ContainerRayCast(%startPos, %endPos, $TypeMasks::VehicleObjectType);
+
+      if (%target)
+      {
+         // See if anyone is mounted in the car's driver seat
+         %mount = %target.getMountNodeObject(0);
+
+         // Can only carjack bots
+         // remove '&& %mount.getClassName() $= "AIPlayer"' to allow you
+         // to carjack anyone/anything
+         if (%mount && %mount.getClassName() $= "AIPlayer")
+         {
+            commandToServer('carUnmountObj', %mount);
+         }
+      }
+   }
+}
 
 //------------------------------------------------------------------------------
 // Debugging Functions

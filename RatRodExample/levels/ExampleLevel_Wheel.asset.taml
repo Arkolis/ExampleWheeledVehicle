@@ -7,5 +7,5 @@
     ForestFile="@assetFile=ExampleLevel_Wheel.forest"
     NavmeshFile="@assetFile=ExampleLevel_Wheel.nav"
     staticObjectAssetDependency0="@asset=Prototyping:FloorGray"
-    staticObjectAssetDependency1="@asset=ExampleWheeledVehicle:NewTerrain"
+    staticObjectAssetDependency1="@asset=RatRodExample:NewTerrain"
     VersionId="1"/>

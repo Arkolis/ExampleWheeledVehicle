@@ -1,33 +1,36 @@
-function ExampleWheeledVehicle::onCreate(%this)
+//-------------------------------- Header -------------------------------------
+//-----------------------------------------------------------------------------
+
+function RatRodExample::onCreate(%this)
 {
 }
 
-function ExampleWheeledVehicle::onDestroy(%this)
+function RatRodExample::onDestroy(%this)
 {
 }
 
 //This is called when the server is initially set up by the game application
-function ExampleWheeledVehicle::initServer(%this)
+function RatRodExample::initServer(%this)
 {
-   %this.queueExec("./scripts/shared/ExampleGameMode");
    %this.queueExec("./scripts/server/server");
 }
 
 //This is called when the server is created for an actual game/map to be played
-function ExampleWheeledVehicle::onCreateGameServer(%this)
+function RatRodExample::onCreateGameServer(%this)
 {
-   %this.registerDatablock("./datablocks/RatRodDB");
+   %this.registerDatablock("./datablocks/vehicles/RatRodDB");
 }
 
 //This is called when the server is shut down due to the game/map being exited
-function ExampleWheeledVehicle::onDestroyGameServer(%this)
+function RatRodExample::onDestroyGameServer(%this)
 {
 }
 
 //This is called when the client is initially set up by the game application
-function ExampleWheeledVehicle::initClient(%this)
+function RatRodExample::initClient(%this)
 {
    %this.queueExec("./scripts/client/inputCommands");
+   %this.queueExec("./scripts/client/client");
 
    //client scripts
    exec("./scripts/client/defaultkeybinds");
@@ -35,17 +38,15 @@ function ExampleWheeledVehicle::initClient(%this)
    %prefPath = getPrefpath();
    if(isScriptFile(%prefPath @ "/keybinds"))
       exec(%prefPath @ "/keybinds");
-      
-   %this.queueExec("./scripts/shared/ExampleGameMode");
+   %this.queueExec("./scripts/client/clientRatRod");
 }
 
 //This is called when a client connects to a server
-function ExampleWheeledVehicle::onCreateClientConnection(%this)
+function RatRodExample::onCreateClientConnection(%this)
 {
-   ExampleWheeledMove.push();
 }
 
 //This is called when a client disconnects from a server
-function ExampleWheeledVehicle::onDestroyClientConnection(%this)
+function RatRodExample::onDestroyClientConnection(%this)
 {
 }

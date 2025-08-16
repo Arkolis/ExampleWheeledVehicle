@@ -1,0 +1,16 @@
+<ModuleDefinition
+    ModuleId="RatRodExample"
+    VersionId="1"
+    Description="RatRod Example vehicle."
+    scriptFile="RatRodExample"
+    CreateFunction="onCreate"
+    DestroyFunction="onDestroy"
+    Group="Game"
+    Dependencies="UI=1"
+    Priority="1.2">
+    <DeclaredAssets
+        canSave="true"
+        canSaveDynamicFields="true"
+        Extension="asset.taml"
+        Recurse="true"/>
+</ModuleDefinition>
